@@ -1,4 +1,0 @@
-#Tue Apr 11 14:08:35 EEST 2023
-base.0=/Users/awe/Documents/work/dev/mobile_dev/loginSignup/build/app/intermediates/dex/debug/mergeDexDebug/classes.dex
-renamed.0=classes.dex
-path.0=classes.dex
