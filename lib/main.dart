@@ -1,20 +1,20 @@
-import 'package:ecommerce/pages/mainPage.dart';
-import 'package:ecommerce/pages/welcomePage.dart';
-import 'package:ecommerce/pages/welcomeScreen.dart';
+import 'package:glucovie/pages/welcome_page.dart';
 import 'package:flutter/material.dart';
+import 'package:intl/date_symbol_data_local.dart';
+
 
 void main() {
-  runApp(ecommerce());
+  initializeDateFormatting().then((_) => runApp(GlucoVie()));
 }
 
-class ecommerce extends StatelessWidget {
-  const ecommerce({Key? key}) : super(key: key);
+class GlucoVie extends StatelessWidget {
+  const GlucoVie({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
+    return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: welcomeScreen(),
+      home: WelcomeScreen(),
     );
   }
 }

@@ -1,350 +1,172 @@
-// import 'package:flutter/material.dart';
-// import 'package:flutter_bloc/flutter_bloc.dart';
-// import 'package:ecommerce/Bloc/notes_bloc.dart';
-// import 'package:ecommerce/Screens/Actions/create_note.dart';
-// import 'package:ecommerce/Screens/Actions/edit_note.dart';
-// import 'package:ecommerce/Widgets/notes.dart';
-//
-// final TextEditingController searchC = TextEditingController();
-//
-// class NotesPage extends StatefulWidget {
-//   const NotesPage({Key? key}) : super(key: key);
-//
-//   @override
-//   State<NotesPage> createState() => _NotesPageState();
-// }
-//
-// class _NotesPageState extends State<NotesPage> {
-//   late ColorScheme theme;
-//   late NotesBloc B;
-//   late int value;
-//   late List<Map> notes;
-//   bool noTitle = false;
-//   bool noContent = false;
-//   bool searchOn = false;
-//   bool openFab = false;
-//
-//   @override
-//   void initState() {
-//     B = NotesBloc.get(context);
-//     value = B.viewIndexN;
-//     super.initState();
-//   }
-//
-//   @override
-//   void didChangeDependencies() {
-//     notes = searchOn ? B.searchedNotes : B.notesMap;
-//     theme = Theme.of(context).colorScheme;
-//     super.didChangeDependencies();
-//   }
-//
-//   @override
-//   Widget build(BuildContext context) {
-//     return BlocConsumer<NotesBloc, NotesState>(
-//       listener: (context, state) {},
-//       builder: (context, state) {
-//         return Scaffold(
-//           backgroundColor: B.isDarkMode ? theme.background : theme.surfaceVariant.withOpacity(0.6),
-//           floatingActionButtonLocation: B.fabIndex == 0
-//               ? FloatingActionButtonLocation.endFloat
-//               : FloatingActionButtonLocation.startFloat,
-//           floatingActionButton: FloatingActionButton(
-//             splashColor: B.colors[0],
-//             elevation: 0,
-//             backgroundColor: B.colorful ? B.colors[1] : theme.primary,
-//             onPressed: () async {
-//               create();
-//             },
-//             child: Icon(
-//               Icons.add,
-//               color: theme.surfaceVariant,
-//             ),
-//           ),
-//           body: ListView(
-//             padding: EdgeInsets.zero,
-//             children: [
-//               B.customAppBar("Text".trim(), 65, leading()),
-//               searchOn
-//                   ? Center(
-//                 child: Padding(
-//                   padding: const EdgeInsets.symmetric(vertical: 10, horizontal: 20),
-//                   child: TextFormField(
-//                       autofocus: true,
-//                       controller: searchC,
-//                       onChanged: B.searchNotes,
-//                       maxLines: 1,
-//                       decoration: InputDecoration(
-//                         contentPadding: EdgeInsets.symmetric(
-//                             vertical: B.isTablet ? 20 : 5, horizontal: 20),
-//                         enabledBorder: OutlineInputBorder(
-//                             borderSide: BorderSide(color: Colors.grey.shade300),
-//                             borderRadius: BorderRadius.circular(0)),
-//                         hintText: "Search".trim(),
-//                         filled: true,
-//                         fillColor: Theme.of(context).cardColor,
-//                         border: OutlineInputBorder(borderRadius: BorderRadius.circular(0)),
-//                       )),
-//                 ),
-//               )
-//                   : Container(),
-//               notes.isNotEmpty
-//                   ? B.viewIndexN != 2
-//                   ? Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-//                 child: ListView.builder(
-//                     padding: EdgeInsets.zero,
-//                     shrinkWrap: true,
-//                     physics: const NeverScrollableScrollPhysics(),
-//                     itemCount: notes.length,
-//                     itemBuilder: (context, index) {
-//                       int reverseIndex = notes.length - index - 1;
-//                       notes[reverseIndex]["title"] == ""
-//                           ? noTitle = true
-//                           : noTitle = false;
-//                       notes[reverseIndex]["content"] == ""
-//                           ? noContent = true
-//                           : noContent = false;
-//                       int dateValue = B.calculateDifference(notes[reverseIndex]["time"]);
-//                       String date = B.parseDate(notes[reverseIndex]["time"]);
-//                       Widget chosenView = B.viewIndexN == 0
-//                           ? Stack(
-//                         alignment: notes[reverseIndex]["layout"] == 0
-//                             ? Alignment.topRight
-//                             : Alignment.topLeft,
-//                         children: [
-//                           GestureDetector(
-//                             onTap: () => edit(reverseIndex),
-//                             child: listView(
-//                               context: context,
-//                               notes: notes,
-//                               colors: B.colors,
-//                               reverseIndex: reverseIndex,
-//                               dateValue: dateValue,
-//                               date: date,
-//                               noTitle: noTitle,
-//                               noContent: noContent,
-//                               showDate: B.showDate,
-//                               showShadow: B.showShadow,
-//                               showEdited: B.showEdited,
-//                               isTablet: B.isTablet,
-//                               lang: 'ro_RO',
-//                               width: B.width,
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding: EdgeInsets.symmetric(
-//                                 horizontal: notes[reverseIndex]["layout"] == 0
-//                                     ? 20
-//                                     : B.isTablet
-//                                     ? 15
-//                                     : 10,
-//                                 vertical: B.width * 0.02037),
-//                             child: IconButton(
-//                                 constraints: BoxConstraints.tightFor(
-//                                     width: B.width * 0.083,
-//                                     height: B.width * 0.083),
-//                                 focusColor: Colors.blue,
-//                                 onPressed: () async {
-//                                   showDelete(reverseIndex);
-//                                 },
-//                                 icon: Icon(
-//                                   Icons.close,
-//                                   color: Colors.white,
-//                                   size: B.width * 0.06620,
-//                                 )),
-//                           ),
-//                         ],
-//                       )
-//                           : Stack(
-//                         alignment: notes[reverseIndex]["layout"] == 0
-//                             ? Alignment.topRight
-//                             : Alignment.topLeft,
-//                         children: [
-//                           GestureDetector(
-//                             onTap: () => edit(reverseIndex),
-//                             child: smallListView(
-//                               context: context,
-//                               notes: notes,
-//                               colors: B.colors,
-//                               reverseIndex: reverseIndex,
-//                               dateValue: dateValue,
-//                               date: date,
-//                               noTitle: noTitle,
-//                               noContent: noContent,
-//                               showDate: B.showDate,
-//                               showShadow: B.showShadow,
-//                               showEdited: B.showEdited,
-//                               isTablet: B.isTablet,
-//                               lang: 'ro_RO',
-//                               width: B.width,
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding: EdgeInsets.symmetric(
-//                                 horizontal: B.isTablet
-//                                     ? 8.0
-//                                     : notes[reverseIndex]["layout"] == 0
-//                                     ? 10
-//                                     : 0,
-//                                 vertical: B.isTablet ? 8.0 : 0),
-//                             child: IconButton(
-//                                 constraints: BoxConstraints.tightFor(
-//                                     width: B.width * 0.083,
-//                                     height: B.width * 0.083),
-//                                 focusColor: Colors.blue,
-//                                 onPressed: () async {
-//                                   showDelete(reverseIndex);
-//                                 },
-//                                 icon: Icon(
-//                                   Icons.close,
-//                                   color: Colors.white,
-//                                   size: B.width * 0.0662,
-//                                 )),
-//                           ),
-//                         ],
-//                       );
-//                       return chosenView;
-//                     }),
-//               )
-//                   : Padding(
-//                 padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 2),
-//                 child: GridView.builder(
-//                     padding: EdgeInsets.zero,
-//                     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
-//                       crossAxisCount: 2,
-//                     ),
-//                     shrinkWrap: true,
-//                     physics: const NeverScrollableScrollPhysics(),
-//                     itemCount: notes.length,
-//                     itemBuilder: (context, index) {
-//                       int reverseIndex = notes.length - index - 1;
-//                       notes[reverseIndex]["title"] == ""
-//                           ? noTitle = true
-//                           : noTitle = false;
-//                       notes[reverseIndex]["content"] == ""
-//                           ? noContent = true
-//                           : noContent = false;
-//                       int dateValue = B.calculateDifference(notes[reverseIndex]["time"]);
-//                       String date = B.parseDate(notes[reverseIndex]["time"]);
-//                       return Stack(
-//                         alignment: notes[reverseIndex]["layout"] == 0
-//                             ? Alignment.topRight
-//                             : Alignment.topLeft,
-//                         children: [
-//                           GestureDetector(
-//                             onTap: () => edit(reverseIndex),
-//                             child: gridView(
-//                               context: context,
-//                               notes: notes,
-//                               colors: B.colors,
-//                               reverseIndex: reverseIndex,
-//                               dateValue: dateValue,
-//                               date: date,
-//                               noTitle: noTitle,
-//                               noContent: noContent,
-//                               showDate: B.showDate,
-//                               showShadow: B.showShadow,
-//                               showEdited: B.showEdited,
-//                               isTablet: B.isTablet,
-//                               lang: 'ro_RO',
-//                               width: B.width,
-//                             ),
-//                           ),
-//                           Padding(
-//                             padding: EdgeInsets.symmetric(
-//                                 horizontal: B.isTablet
-//                                     ? 8.0
-//                                     : notes[reverseIndex]["layout"] == 0
-//                                     ? 10
-//                                     : 0,
-//                                 vertical: B.isTablet ? 8.0 : 0),
-//                             child: IconButton(
-//                                 constraints: BoxConstraints.tightFor(
-//                                     width: B.width * 0.083, height: B.width * 0.083),
-//                                 focusColor: Colors.blue,
-//                                 onPressed: () async {
-//                                   showDelete(reverseIndex);
-//                                 },
-//                                 icon: Icon(
-//                                   Icons.close,
-//                                   color: Colors.white,
-//                                   size: B.width * 0.0662,
-//                                 )),
-//                           ),
-//                         ],
-//                       );
-//                     }),
-//               )
-//                   : Padding(
-//                 padding: const EdgeInsets.symmetric(vertical: 200),
-//                 child: Center(
-//                     child: Text(
-//                       "N2".trim(),
-//                       style: TextStyle(
-//                           color: B.colorful ? B.colors[1] : theme.primary,
-//                           fontWeight: FontWeight.w400),
-//                     )),
-//               ),
-//               const SizedBox(
-//                 height: 20,
-//               ),
-//             ],
-//           ),
-//         );
-//       },
-//     );
-//   }
-//
-//   Widget leading() {
-//     return Row(
-//       crossAxisAlignment: CrossAxisAlignment.center,
-//       mainAxisAlignment: MainAxisAlignment.end,
-//       children: [
-//         IconButton(
-//           onPressed: () {
-//             searchOn = !searchOn;
-//             B.searchNotes(searchC.text);
-//             B.onSearch();
-//           },
-//           icon: Icon(
-//             Icons.search,
-//             size: 30,
-//             color: searchOn
-//                 ? B.colorful
-//                 ? B.colors[1]
-//                 : theme.primary
-//                 : theme.onSurfaceVariant,
-//           ),
-//         ),
-//         IconButton(
-//           onPressed: () {
-//             value < 2 ? value++ : value = 0;
-//             B.box.put("viewIndexN", value);
-//             B.viewIndexN = value;
-//             B.onViewChanged();
-//           },
-//           icon: B.viewIndexN == 0
-//               ? const Icon(Icons.view_agenda_sharp)
-//               : B.viewIndexN == 1
-//               ? const Icon(Icons.view_day_sharp)
-//               : const Icon(Icons.grid_view_sharp),
-//         )
-//       ],
-//     );
-//   }
-//
-//   create() {
-//     showBottomSheet(context: context, builder: (context) => const CreateNote());
-//   }
-//
-//   edit(reverseIndex) {
-//     showBottomSheet(
-//       context: context,
-//       builder: (context) => EditNote(note: notes[reverseIndex]),
-//     );
-//   }
-//
-//   showDelete(index) {
-//     B.showDeleteDialog(context, notes, index);
-//   }
-// }
+import "package:glucovie/pages/navigation/navigation.dart";
+import "package:flutter/material.dart";
+import "package:glucovie/models/note.dart";
+
+class NotePage extends StatefulWidget {
+  const NotePage({Key? key, required this.note}) : super(key: key);
+  final Note note;
+
+  @override
+  State<NotePage> createState() => _NotePageState();
+}
+
+class _NotePageState extends State<NotePage> {
+  final formKey = GlobalKey<FormState>();
+  final TextEditingController _titleController = TextEditingController();
+  final TextEditingController _bodyController = TextEditingController();
+
+  @override
+  void initState() {
+    super.initState();
+    _titleController.text = widget.note.title ?? "Note Title...";
+    _bodyController.text = widget.note.body ?? "Write your note here...";
+  }
+
+  @override
+  void dispose() {
+    // TODO: implement dispose
+    super.dispose();
+    _titleController.dispose();
+    _bodyController.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return WillPopScope(
+      onWillPop: () async {
+        var formState = formKey.currentState!;
+        formState.save();
+        var note = widget.note;
+        note.body = _bodyController.text;
+        note.title = _titleController.text;
+        note.updatedAt = DateTime.now();
+        var i = await note.save();
+        return i != null;
+      },
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text(_titleController.text),
+          centerTitle: true,
+          backgroundColor: Colors.purple,
+        ),
+        body: SafeArea(
+          child: SingleChildScrollView(
+            child: Container(
+              height: MediaQuery.of(context).size.height,
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.circular(10.0),
+                border: Border.all(
+                  width: 3.0,
+                  color: Colors.indigo,
+                ),
+                boxShadow: const [
+                  BoxShadow(
+                    color: Colors.black26,
+                    offset: Offset(0, 6),
+                    blurRadius: 6.0,
+                  ),
+                ],
+              ),
+              child: Padding(
+                padding: const EdgeInsets.only(top: 16, left: 8, right: 8),
+                child: Form(
+                  key: formKey,
+                  autovalidateMode: AutovalidateMode.always,
+                  onChanged: () {
+                    Form.of(primaryFocus!.context!)?.save();
+                  },
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Flexible(
+                        child: TextFormField(
+                          controller: _titleController,
+                          decoration: const InputDecoration(
+                            hintText: "Titlul notiței",
+                            label: Text("Titlu"),
+                          ),
+                        ),
+                      ),
+                      Flexible(
+                        flex: 2,
+                        child: TextFormField(
+                          maxLines: 100,
+                          controller: _bodyController,
+                          decoration: const InputDecoration(
+                            hintText: "Notița mea",
+                            label: Text("Notiță"),
+                          ),
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ),
+          ),
+        ),
+        bottomNavigationBar: navigation(context),
+      ),
+    );
+  }
+}
+
+OutlineInputBorder textFieldBorder({
+  bool focused = false,
+  bool error = false,
+}) {
+  Color borderColor = const Color.fromRGBO(30, 69, 208, 1);
+  if (error) {
+    borderColor = Colors.red;
+  }
+  double width = 1.0;
+  if (focused) {
+    width = 2.0;
+  }
+
+  return OutlineInputBorder(
+    borderSide: BorderSide(color: borderColor, width: width),
+    borderRadius: BorderRadius.circular(15.0),
+  );
+}
+
+InputDecoration inputDecoration({
+  required String hintText,
+  required String label,
+}) {
+  return InputDecoration(
+    hintText: hintText,
+    errorBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Colors.red),
+      borderRadius: BorderRadius.circular(15.0),
+    ),
+    focusedErrorBorder: OutlineInputBorder(
+      borderSide:
+      const BorderSide(color: Color.fromRGBO(30, 69, 208, 1), width: 2.0),
+      borderRadius: BorderRadius.circular(15.0),
+    ),
+    label: Text(
+      label,
+      style: const TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        letterSpacing: 1.2,
+      ),
+    ),
+    floatingLabelStyle: const TextStyle(
+      fontSize: 18,
+      fontWeight: FontWeight.bold,
+      letterSpacing: 1.2,
+    ),
+    focusedBorder: OutlineInputBorder(
+      borderSide:
+      const BorderSide(color: Color.fromRGBO(30, 69, 208, 1), width: 2.0),
+      borderRadius: BorderRadius.circular(15.0),
+    ),
+    enabledBorder: OutlineInputBorder(
+      borderSide: const BorderSide(color: Color.fromRGBO(30, 69, 208, 1)),
+      borderRadius: BorderRadius.circular(15.0),
+    ),
+  );
+}

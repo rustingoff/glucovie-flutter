@@ -1,5 +1,5 @@
-import 'package:ecommerce/pages/navigation/navigation.dart';
-import 'package:ecommerce/resources/app_colors.dart';
+import 'package:glucovie/pages/navigation/navigation.dart';
+import 'package:glucovie/resources/app_colors.dart';
 import 'package:fl_chart/fl_chart.dart';
 import 'package:flutter/material.dart';
 

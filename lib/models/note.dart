@@ -1,9 +1,10 @@
 import "dart:convert";
 import "package:flutter/material.dart";
-import 'package:sqflite/sqflite.dart';
+import "package:sqfentity/sqfentity.dart";
+import "package:sqfentity_gen/sqfentity_gen.dart";
 part "note.g.dart";
 
-const tagTable = Sqf(
+const tagTable = SqfEntityTable(
   tableName: "tag",
   primaryKeyName: "id",
   primaryKeyType: PrimaryKeyType.integer_auto_incremental,

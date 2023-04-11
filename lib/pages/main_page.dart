@@ -1,5 +1,4 @@
-import 'package:ecommerce/pages/chartScreen.dart';
-import 'package:ecommerce/pages/navigation/navigation.dart';
+import 'package:glucovie/pages/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';

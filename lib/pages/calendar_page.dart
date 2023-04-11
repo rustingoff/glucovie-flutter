@@ -1,4 +1,4 @@
-import 'package:ecommerce/pages/navigation/navigation.dart';
+import 'package:glucovie/pages/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:table_calendar/table_calendar.dart';
 import '../utils.dart';

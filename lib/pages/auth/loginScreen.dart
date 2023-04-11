@@ -1,17 +1,20 @@
+import 'package:glucovie/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:google_fonts/google_fonts.dart';
 import 'package:validators/validators.dart';
+import 'signUpScreen.dart';
 
-class loginScreen extends StatefulWidget {
-  const loginScreen({Key? key}) : super(key: key);
+
+class LoginScreen extends StatefulWidget {
+  const LoginScreen({Key? key}) : super(key: key);
 
   @override
-  State<loginScreen> createState() => _loginScreenState();
+  State<LoginScreen> createState() => _LoginScreenState();
 }
 
-class _loginScreenState extends State<loginScreen> {
-  TextEditingController _textEditingController = TextEditingController();
+class _LoginScreenState extends State<LoginScreen> {
+  final TextEditingController _textEditingController = TextEditingController();
 
   @override
   void dispose() {
@@ -25,16 +28,7 @@ class _loginScreenState extends State<loginScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: Container(
-        decoration: const BoxDecoration(
-            // color: Colors.red.withOpacity(0.1),
-            image: DecorationImage(
-                image: NetworkImage(
-                    // 'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcShp2T_UoR8vXNZXfMhtxXPFvmDWmkUbVv3A40TYjcunag0pHFS_NMblOClDVvKLox4Atw&usqp=CAU',
-                    'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSx7IBkCtYd6ulSfLfDL-aSF3rv6UfmWYxbSE823q36sPiQNVFFLatTFdGeUSnmJ4tUzlo&usqp=CAU'),
-                fit: BoxFit.cover,
-                opacity: 0.3)),
-        child: SafeArea(
+      body: SafeArea(
           child: Center(
             child: SingleChildScrollView(
               scrollDirection: Axis.vertical,
@@ -48,14 +42,8 @@ class _loginScreenState extends State<loginScreen> {
                       animate: true,
                       height: 120,
                       width: 600),
-                  // logo here
-                  // Image.asset(
-                  //   'assets/images/logo_new.png',
-                  //   height: 120,
-                  //   width: 120,
-                  // ),
                   Text(
-                    'Log In Now',
+                    'Intră în cont',
                     style: GoogleFonts.indieFlower(
                       textStyle: const TextStyle(
                         fontWeight: FontWeight.bold,
@@ -64,7 +52,7 @@ class _loginScreenState extends State<loginScreen> {
                     ),
                   ),
                   Text(
-                    'Please login to continue using our app',
+                    'Vă rugăm să vă autentificati pentru a utiliza aplicatia',
                     style: GoogleFonts.indieFlower(
                       textStyle: TextStyle(
                           color: Colors.black.withOpacity(0.5),
@@ -89,7 +77,7 @@ class _loginScreenState extends State<loginScreen> {
                       children: [
                         Padding(
                           padding: const EdgeInsets.only(
-                              left: 20, right: 20, bottom: 20, top: 20),
+                              left: 20, right: 20,),
                           child: TextFormField(
                             controller: _textEditingController,
                             onChanged: (val) {
@@ -115,10 +103,6 @@ class _loginScreenState extends State<loginScreen> {
                               labelText: "Email",
                               hintText: 'your-email@domain.com',
                               labelStyle: TextStyle(color: Colors.purple),
-                              // suffixIcon: IconButton(
-                              //     onPressed: () {},
-                              //     icon: Icon(Icons.close,
-                              //         color: Colors.purple))
                             ),
                           ),
                         ),
@@ -139,18 +123,18 @@ class _loginScreenState extends State<loginScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 prefixIcon: Icon(
-                                  Icons.person,
+                                  Icons.lock,
                                   color: Colors.purple,
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                labelText: "Password",
+                                labelText: "Parola",
                                 hintText: '*********',
                                 labelStyle: TextStyle(color: Colors.purple),
                               ),
                               validator: (value) {
                                 if (value!.isEmpty && value!.length < 5) {
-                                  return 'Enter a valid password';
+                                  return 'Introduceți o parolă validă';
                                   {
                                     return null;
                                   }
@@ -159,7 +143,7 @@ class _loginScreenState extends State<loginScreen> {
                             ),
                           ),
                         ),
-                        SizedBox(
+                        const SizedBox(
                           height: 20,
                         ),
                         isEmailCorrect
@@ -171,27 +155,17 @@ class _loginScreenState extends State<loginScreen> {
                                     backgroundColor: isEmailCorrect == false
                                         ? Colors.red
                                         : Colors.purple,
-                                    padding: EdgeInsets.symmetric(
-                                        horizontal: 131, vertical: 20)
-                                    // padding: EdgeInsets.only(
-                                    //     left: 120, right: 120, top: 20, bottom: 20),
-                                    ),
+                                    padding: const EdgeInsets.symmetric(horizontal: 131, vertical: 20)),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    // If the form is valid, display a snackbar. In the real world,
-                                    // you'd often call a server or save the information in a database.
-                                    ScaffoldMessenger.of(context).showSnackBar(
-                                      const SnackBar(
-                                          content: Text('Processing Data')),
-                                    );
+                                    Navigator.push(context,
+                                        MaterialPageRoute(
+                                            builder: (BuildContext context) =>
+                                            const MainPage()));
                                   }
-                                  // Navigator.push(
-                                  //     context,
-                                  //     MaterialPageRoute(
-                                  //         builder: (context) => loginScreen()));
                                 },
-                                child: Text(
-                                  'Log In',
+                                child: const Text(
+                                  'Intră',
                                   style: TextStyle(fontSize: 17),
                                 ))
                             : Container(),
@@ -199,44 +173,24 @@ class _loginScreenState extends State<loginScreen> {
                     ),
                   ),
 
-                  //this is button
-                  // const SizedBox(
-                  //   height: 30,
-                  // ),
-                  // ElevatedButton(
-                  //     style: ElevatedButton.styleFrom(
-                  //         shape: RoundedRectangleBorder(
-                  //             borderRadius: BorderRadius.circular(10.0)),
-                  //         backgroundColor: Colors.purple,
-                  //         padding: EdgeInsets.symmetric(
-                  //             horizontal: MediaQuery.of(context).size.width / 3.3,
-                  //             vertical: 20)
-                  //         // padding: EdgeInsets.only(
-                  //         //     left: 120, right: 120, top: 20, bottom: 20),
-                  //         ),
-                  //     onPressed: () {
-                  //       Navigator.push(
-                  //           context,
-                  //           MaterialPageRoute(
-                  //               builder: (context) => loginScreen()));
-                  //     },
-                  //     child: Text(
-                  //       'Sounds Good!',
-                  //       style: TextStyle(fontSize: 17),
-                  //     )), //
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [
                       Text(
-                        'You have\'t any account?',
+                        'Nu ai un cont?',
                         style: TextStyle(
                           color: Colors.black.withOpacity(0.6),
                         ),
                       ),
                       TextButton(
-                        onPressed: () {},
-                        child: Text(
-                          'Sign Up',
+                        onPressed: () {
+                          Navigator.push( context,
+                            MaterialPageRoute(
+                            builder: (BuildContext context) =>
+                              const SignUpScreen()));
+                        },
+                        child: const Text(
+                          'Înregistrează-te',
                           style: TextStyle(
                               color: Colors.purple,
                               fontWeight: FontWeight.w500),
@@ -249,7 +203,6 @@ class _loginScreenState extends State<loginScreen> {
             ),
           ),
         ),
-      ),
     );
   }
 }
