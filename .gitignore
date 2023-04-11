@@ -3,3 +3,5 @@ pubspec.lock
 .flutter-plugins
 .flutter-plugins-dependencies
 .metadata
+build
+.dart_tool
