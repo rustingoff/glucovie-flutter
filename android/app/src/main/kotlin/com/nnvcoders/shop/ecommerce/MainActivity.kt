@@ -1,4 +1,4 @@
-package com.nnvcoders.shop.ecommerce
+package com.vinari.these.glucovie
 
 import io.flutter.embedding.android.FlutterActivity
 

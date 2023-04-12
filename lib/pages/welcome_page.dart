@@ -62,7 +62,7 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
                     Navigator.push(context,
                         PageTransition(
                             type: PageTransitionType.rightToLeftPop,
-                            child: const MainPage(),
+                            child: const LoginScreen(),
                             childCurrent: const WelcomeScreen()
                         )
                     );

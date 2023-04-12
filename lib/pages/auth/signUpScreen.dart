@@ -165,6 +165,67 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 0, top: 10),
+                        child: TextFormField(
+                          controller: _textEditingController,
+                          onChanged: (val) {
+                            setState(() {
+                              isEmailCorrect = isEmail(val);
+                            });
+                          },
+                          decoration: const InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                            prefixIcon: Icon(
+                              Icons.nature_people_outlined,
+                              color: Colors.purple,
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            labelText: "Sex",
+                            hintText: 'Masculin/Feminin',
+                            labelStyle: TextStyle(color: Colors.purple),
+                          ),
+                        ),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(
+                            left: 20, right: 20, bottom: 0, top: 10),
+                        child: TextFormField(
+                          controller: _textEditingController,
+                          onChanged: (val) {
+                            setState(() {
+                              isEmailCorrect = isEmail(val);
+                            });
+                          },
+                          decoration: const InputDecoration(
+                            focusedBorder: UnderlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                            enabledBorder: UnderlineInputBorder(
+                                borderSide: BorderSide.none,
+                                borderRadius:
+                                BorderRadius.all(Radius.circular(10))),
+                            prefixIcon: Icon(
+                              Icons.date_range_outlined,
+                              color: Colors.purple,
+                            ),
+                            filled: true,
+                            fillColor: Colors.white,
+                            labelText: "Vârsta",
+                            labelStyle: TextStyle(color: Colors.purple),
+                          ),
+                        ),
+                      ),
                       isEmailCorrect
                           ? ElevatedButton(
                           style: ElevatedButton.styleFrom(
