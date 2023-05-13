@@ -1,3 +1,4 @@
+import 'package:glucovie/constants/text_styles.dart';
 import 'package:glucovie/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
@@ -44,22 +45,11 @@ class _LoginScreenState extends State<LoginScreen> {
                       width: 600),
                   Text(
                     'Intră în cont',
-                    style: GoogleFonts.indieFlower(
-                      textStyle: const TextStyle(
-                        fontWeight: FontWeight.bold,
-                        fontSize: 40,
-                      ),
-                    ),
+                    style: screenTitleTS,
                   ),
                   Text(
                     'Vă rugăm să vă autentificati pentru a utiliza aplicatia',
-                    style: GoogleFonts.indieFlower(
-                      textStyle: TextStyle(
-                          color: Colors.black.withOpacity(0.5),
-                          fontWeight: FontWeight.w300,
-                          // height: 1.5,
-                          fontSize: 15),
-                    ),
+                    style: screenSubtitleTS,
                   ),
 
                   const SizedBox(
@@ -85,16 +75,16 @@ class _LoginScreenState extends State<LoginScreen> {
                                 isEmailCorrect = isEmail(val);
                               });
                             },
-                            decoration: const InputDecoration(
-                              focusedBorder: UnderlineInputBorder(
+                            decoration: InputDecoration(
+                              focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
-                              enabledBorder: UnderlineInputBorder(
+                              enabledBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius:
                                       BorderRadius.all(Radius.circular(10))),
-                              prefixIcon: Icon(
+                              prefixIcon: const Icon(
                                 Icons.person,
                                 color: Colors.purple,
                               ),
@@ -102,7 +92,7 @@ class _LoginScreenState extends State<LoginScreen> {
                               fillColor: Colors.white,
                               labelText: "Email",
                               hintText: 'your-email@domain.com',
-                              labelStyle: TextStyle(color: Colors.purple),
+                              labelStyle: formInputTS,
                             ),
                           ),
                         ),
@@ -113,16 +103,16 @@ class _LoginScreenState extends State<LoginScreen> {
                             child: TextFormField(
                               obscuringCharacter: '*',
                               obscureText: true,
-                              decoration: const InputDecoration(
-                                focusedBorder: UnderlineInputBorder(
+                              decoration: InputDecoration(
+                                focusedBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide.none,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
-                                enabledBorder: UnderlineInputBorder(
+                                enabledBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide.none,
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
-                                prefixIcon: Icon(
+                                prefixIcon: const Icon(
                                   Icons.lock,
                                   color: Colors.purple,
                                 ),
@@ -130,7 +120,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 fillColor: Colors.white,
                                 labelText: "Parola",
                                 hintText: '*********',
-                                labelStyle: TextStyle(color: Colors.purple),
+                                labelStyle: formInputTS,
                               ),
                               validator: (value) {
                                 if (value!.isEmpty && value!.length < 5) {

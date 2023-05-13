@@ -1,4 +1,5 @@
-import 'package:glucovie/pages/welcome_page.dart';
+import 'package:glucovie/pages/auth/loginScreen.dart';
+import 'package:glucovie/pages/calendar_page.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/date_symbol_data_local.dart';
 
@@ -14,7 +15,8 @@ class GlucoVie extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       debugShowCheckedModeBanner: false,
-      home: WelcomeScreen(),
+      home: CalendarScreen(),
+      themeMode: ThemeMode.light,
     );
   }
 }

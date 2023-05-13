@@ -4,7 +4,7 @@ class AppStrings {
   static const packageName = "com.heycoder.$packageNameID";
   static const playStoreUrl = "https://play.google.com/store";
   static const publisherName = "Hey Coder";
-  static const authorName = "Sarvesh Kumar Dwivedi";
+  static const authorName = "Vinari Ana";
   static const appUrl = "$playStoreUrl/apps/details?id=$packageName";
   static const publisherUrl =
       "$playStoreUrl/search?q=pub:$publisherName&c=apps";
