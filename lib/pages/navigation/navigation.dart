@@ -16,6 +16,20 @@ Container navigation(BuildContext context) {
       crossAxisAlignment: CrossAxisAlignment.stretch,
       children: [
         IconButton(
+          iconSize: 40,
+          icon: const Icon(
+            Icons.home,
+            color: Colors.black54,
+          ),
+          onPressed: () {
+            Navigator.push(
+                context,
+                MaterialPageRoute(
+                    builder: (BuildContext context) =>
+                    const MainPage()));
+          },
+        ),
+        IconButton(
           iconSize: 35,
           icon: const Icon(
             Icons.insert_chart,
@@ -31,6 +45,8 @@ Container navigation(BuildContext context) {
         ),
         IconButton(
           iconSize: 35,
+          focusColor: Colors.purple,
+          hoverColor: Colors.purple,
           icon: const Icon(
             Icons.note_add,
             color: Colors.black54,
@@ -41,20 +57,6 @@ Container navigation(BuildContext context) {
                 MaterialPageRoute(
                     builder: (BuildContext context) =>
                     const HomeNotesPage()));
-          },
-        ),
-        IconButton(
-          iconSize: 55,
-          icon: const Icon(
-            Icons.apps,
-            color: Color(0xaa860095),
-          ),
-          onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                    const MainPage()));
           },
         ),
         IconButton(
@@ -69,6 +71,20 @@ Container navigation(BuildContext context) {
                 MaterialPageRoute(
                     builder: (BuildContext context) =>
                     const CalendarScreen()));
+          },
+        ),
+        IconButton(
+          iconSize: 35,
+          icon: const Icon(
+            Icons.newspaper_sharp,
+            color: Colors.black54,
+          ),
+          onPressed: () {
+            // Navigator.push(
+            //     context,
+            //     MaterialPageRoute(
+            //         builder: (BuildContext context) =>
+            //         const SettingsScreen()));
           },
         ),
         IconButton(

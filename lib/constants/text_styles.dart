@@ -27,3 +27,12 @@ TextStyle screenSubtitleTS = GoogleFonts.openSans(
 TextStyle formInputTS = GoogleFonts.openSans(
   textStyle: const TextStyle(color: Colors.purple, fontSize: 14),
 );
+
+
+TextStyle calendarNotEventTS = GoogleFonts.openSans(
+  textStyle: const TextStyle(color: Colors.purple, fontSize: 18),
+);
+
+TextStyle calendarExistsEventTS = GoogleFonts.openSans(
+  textStyle: const TextStyle(color: Colors.purple, fontSize: 16),
+);
