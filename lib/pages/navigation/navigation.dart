@@ -6,7 +6,6 @@ import 'package:flutter/material.dart';
 
 import '../calendar_page.dart';
 
-
 Container navigation(BuildContext context) {
   return Container(
     height: 80,
@@ -17,88 +16,76 @@ Container navigation(BuildContext context) {
       children: [
         IconButton(
           iconSize: 40,
-          icon: const Icon(
+          icon: Icon(
             Icons.home,
-            color: Colors.black54,
+            color: ModalRoute.of(context)?.settings.name == "main_p"
+                ? Colors.purple
+                : Colors.black54,
           ),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                    const MainPage()));
+            Navigator.pushNamed(context, "main_p");
           },
         ),
         IconButton(
-          iconSize: 35,
-          icon: const Icon(
+          iconSize: 40,
+          icon: Icon(
             Icons.insert_chart,
-            color: Colors.black54,
+            color: ModalRoute.of(context)?.settings.name == "chart_p"
+                ? Colors.purple
+                : Colors.black54,
           ),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                    const ChartScreen()));
+            Navigator.pushNamed(context, "chart_p");
           },
         ),
         IconButton(
-          iconSize: 35,
+          iconSize: 40,
           focusColor: Colors.purple,
           hoverColor: Colors.purple,
-          icon: const Icon(
+          icon: Icon(
             Icons.note_add,
-            color: Colors.black54,
+            color: ModalRoute.of(context)?.settings.name == "notes_p"
+                ? Colors.purple
+                : Colors.black54,
           ),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                    const HomeNotesPage()));
+            Navigator.pushNamed(context, "notes_p");
           },
         ),
         IconButton(
-          iconSize: 35,
-          icon: const Icon(
+          iconSize: 40,
+          icon: Icon(
             Icons.calendar_month_sharp,
-            color: Colors.black54,
+            color: ModalRoute.of(context)?.settings.name == "calendar_p"
+                ? Colors.purple
+                : Colors.black54,
           ),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                    const CalendarScreen()));
+            Navigator.pushNamed(context, "calendar_p");
           },
         ),
         IconButton(
-          iconSize: 35,
-          icon: const Icon(
+          iconSize: 40,
+          icon: Icon(
             Icons.newspaper_sharp,
-            color: Colors.black54,
+            color: ModalRoute.of(context)?.settings.name == "blog_p"
+                ? Colors.purple
+                : Colors.black54,
           ),
           onPressed: () {
-            // Navigator.push(
-            //     context,
-            //     MaterialPageRoute(
-            //         builder: (BuildContext context) =>
-            //         const SettingsScreen()));
+            Navigator.pushNamed(context, "blog_p");
           },
         ),
         IconButton(
-          iconSize: 35,
-          icon: const Icon(
+          iconSize: 40,
+          icon: Icon(
             Icons.settings,
-            color: Colors.black54,
+            color: ModalRoute.of(context)?.settings.name == "settings_p"
+                ? Colors.purple
+                : Colors.black54,
           ),
           onPressed: () {
-            Navigator.push(
-                context,
-                MaterialPageRoute(
-                    builder: (BuildContext context) =>
-                    const SettingsScreen()));
+            Navigator.pushNamed(context, "settings_p");
           },
         ),
       ],

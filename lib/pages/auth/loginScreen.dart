@@ -123,7 +123,7 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelStyle: formInputTS,
                               ),
                               validator: (value) {
-                                if (value!.isEmpty && value!.length < 5) {
+                                if (value!.isEmpty && value!.length < 8) {
                                   return 'Introduceți o parolă validă';
                                   {
                                     return null;
@@ -148,10 +148,8 @@ class _LoginScreenState extends State<LoginScreen> {
                                     padding: const EdgeInsets.symmetric(horizontal: 131, vertical: 20)),
                                 onPressed: () {
                                   if (_formKey.currentState!.validate()) {
-                                    Navigator.push(context,
-                                        MaterialPageRoute(
-                                            builder: (BuildContext context) =>
-                                            const MainPage()));
+                                    Navigator.pushNamed(context,
+                                        "main_p");
                                   }
                                 },
                                 child: const Text(

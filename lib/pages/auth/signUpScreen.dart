@@ -1,7 +1,6 @@
 import 'package:glucovie/pages/auth/loginScreen.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:validators/validators.dart';
 
 import '../../constants/text_styles.dart';
@@ -17,7 +16,7 @@ class SignUpScreen extends StatefulWidget {
 
 class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _textEditingController = TextEditingController();
-  String dropdownValue = list.first;
+
   @override
   void dispose() {
     _textEditingController.clear();
@@ -51,7 +50,9 @@ class _SignUpScreenState extends State<SignUpScreen> {
                   'Vă rugăm să vă înregistrați pentru a continua',
                   style: screenSubtitleTS,
                 ),
-                const SizedBox(height: 20,),
+                const SizedBox(
+                  height: 20,
+                ),
                 Container(
                   width: MediaQuery.of(context).size.width / 1.1,
                   decoration: BoxDecoration(
@@ -73,11 +74,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                             focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                    BorderRadius.all(Radius.circular(10))),
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                    BorderRadius.all(Radius.circular(10))),
                             prefixIcon: const Icon(
                               Icons.person,
                               color: Colors.purple,
@@ -101,11 +102,11 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               focusedBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                      BorderRadius.all(Radius.circular(10))),
                               enabledBorder: const UnderlineInputBorder(
                                   borderSide: BorderSide.none,
                                   borderRadius:
-                                  BorderRadius.all(Radius.circular(10))),
+                                      BorderRadius.all(Radius.circular(10))),
                               prefixIcon: const Icon(
                                 Icons.lock,
                                 color: Colors.purple,
@@ -117,7 +118,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               labelStyle: formInputTS,
                             ),
                             validator: (value) {
-                              if (value!.isEmpty && value!.length < 5) {
+                              if (value!.isEmpty && value!.length < 8) {
                                 return 'Introduceți o parolă validă';
                                 {
                                   return null;
@@ -131,21 +132,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 0, top: 10),
                         child: TextFormField(
-                          controller: _textEditingController,
-                          onChanged: (val) {
-                            setState(() {
-                              isEmailCorrect = isEmail(val);
-                            });
-                          },
+
                           decoration: InputDecoration(
                             focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                    BorderRadius.all(Radius.circular(10))),
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                    BorderRadius.all(Radius.circular(10))),
                             prefixIcon: const Icon(
                               Icons.phone,
                               color: Colors.purple,
@@ -162,21 +158,15 @@ class _SignUpScreenState extends State<SignUpScreen> {
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 0, top: 10),
                         child: TextFormField(
-                          controller: _textEditingController,
-                          onChanged: (val) {
-                            setState(() {
-                              isEmailCorrect = isEmail(val);
-                            });
-                          },
                           decoration: InputDecoration(
                             focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                    BorderRadius.all(Radius.circular(10))),
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                    BorderRadius.all(Radius.circular(10))),
                             prefixIcon: const Icon(
                               Icons.nature_people_outlined,
                               color: Colors.purple,
@@ -189,26 +179,19 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-
                       Padding(
                         padding: const EdgeInsets.only(
                             left: 20, right: 20, bottom: 0, top: 10),
                         child: TextFormField(
-                          controller: _textEditingController,
-                          onChanged: (val) {
-                            setState(() {
-                              isEmailCorrect = isEmail(val);
-                            });
-                          },
                           decoration: InputDecoration(
                             focusedBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                    BorderRadius.all(Radius.circular(10))),
                             enabledBorder: const UnderlineInputBorder(
                                 borderSide: BorderSide.none,
                                 borderRadius:
-                                BorderRadius.all(Radius.circular(10))),
+                                    BorderRadius.all(Radius.circular(10))),
                             prefixIcon: const Icon(
                               Icons.date_range_outlined,
                               color: Colors.purple,
@@ -220,34 +203,27 @@ class _SignUpScreenState extends State<SignUpScreen> {
                           ),
                         ),
                       ),
-                      isEmailCorrect
-                          ? ElevatedButton(
+                      ElevatedButton(
                           style: ElevatedButton.styleFrom(
                               shape: RoundedRectangleBorder(
-                                  borderRadius:
-                                  BorderRadius.circular(10.0)),
-                              backgroundColor: isEmailCorrect == false
-                                  ? Colors.red
-                                  : Colors.purple,
-                              padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 20)),
+                                  borderRadius: BorderRadius.circular(10.0)),
+                              backgroundColor: Colors.purple,
+                              padding: const EdgeInsets.symmetric(
+                                  horizontal: 100, vertical: 20)),
                           onPressed: () {
                             if (_formKey.currentState!.validate()) {
-                              Navigator.push(
+                              Navigator.pushNamed(
                                   context,
-                                  MaterialPageRoute(
-                                      builder: (BuildContext context) =>
-                                      const LoginScreen()));
+                                 "main_p");
                             }
                           },
                           child: const Text(
                             'Înregistrează-te',
                             style: TextStyle(fontSize: 17),
                           ))
-                          : Container(),
                     ],
                   ),
                 ),
-
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
@@ -259,16 +235,16 @@ class _SignUpScreenState extends State<SignUpScreen> {
                     ),
                     TextButton(
                       onPressed: () {
-                        Navigator.push( context,
+                        Navigator.push(
+                            context,
                             MaterialPageRoute(
                                 builder: (BuildContext context) =>
-                                const LoginScreen()));
+                                    const LoginScreen()));
                       },
                       child: const Text(
                         'Intră',
                         style: TextStyle(
-                            color: Colors.purple,
-                            fontWeight: FontWeight.w500),
+                            color: Colors.purple, fontWeight: FontWeight.w500),
                       ),
                     )
                   ],
@@ -281,4 +257,3 @@ class _SignUpScreenState extends State<SignUpScreen> {
     );
   }
 }
-

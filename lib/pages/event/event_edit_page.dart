@@ -27,7 +27,7 @@ class _EventEditPageState extends State<EventEditPage> {
 
     if (widget.event == null) {
       fromDate = DateTime.now();
-      toDate = DateTime.now().add(Duration(hours: 2));
+      toDate = DateTime.now().add(const Duration(hours: 2));
     }
   }
 
@@ -40,7 +40,7 @@ class _EventEditPageState extends State<EventEditPage> {
   @override
   Widget build(BuildContext context) => Scaffold(
         appBar: AppBar(
-          leading: CloseButton(),
+          leading: const CloseButton(),
           actions: buildEditingActions(),
           backgroundColor: Colors.purple,
           title: Text(
@@ -115,7 +115,7 @@ class _EventEditPageState extends State<EventEditPage> {
       );
 
   Widget buildTo() => buildHeader(
-        header: "PĂNĂ LA",
+        header: "PÂNĂ LA",
         child: Row(
           children: [
             Expanded(
