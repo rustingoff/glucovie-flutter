@@ -1,8 +1,6 @@
 import 'package:glucovie/constants/text_styles.dart';
-import 'package:glucovie/pages/main_page.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
-import 'package:google_fonts/google_fonts.dart';
 import 'package:validators/validators.dart';
 import 'signUpScreen.dart';
 
@@ -48,7 +46,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     style: screenTitleTS,
                   ),
                   Text(
-                    'Vă rugăm să vă autentificati pentru a utiliza aplicatia',
+                    'Vă rugăm să vă autentificați pentru a utiliza aplicația',
                     style: screenSubtitleTS,
                   ),
 

@@ -45,13 +45,13 @@ class _MainPageState extends State<MainPage> {
                   Text(
                     formattedDate,
                     textAlign: TextAlign.center,
-                    style: GoogleFonts.indieFlower(
+                    style: GoogleFonts.openSans(
                       fontSize: 30,
                     ),
                   ),
                   const Padding(
                       padding: EdgeInsets.symmetric(vertical: 20),
-                    child: Text('Valoarea optimala: 70-99 mg/dL, sau 3.9-5.5 mmol/L'),
+                    child: Text('Valoarea optimală: 70-99 mg/dL, sau 3.9-5.5 mmol/L'),
                   ),
                   Padding(
                     padding: const EdgeInsets.only(left: 20, right: 20),
@@ -81,9 +81,7 @@ class _MainPageState extends State<MainPage> {
                           labelStyle: TextStyle(color: Colors.purple, fontSize: 16),
                         ),
                         validator: (value) {
-                          if (value!.isEmpty && value!.length < 5) {
-                            return 'Introduceți o parolă validă';
-                          }
+
                         },
                         onChanged: (val) {
                           setState(() {
@@ -117,7 +115,7 @@ class _MainPageState extends State<MainPage> {
                             vertical: 20)
                     ),
                     onPressed: () {},
-                    child: const Text("Salveaza datele"),
+                    child: const Text("Salvează datele"),
                   ),
                 ],
               ),

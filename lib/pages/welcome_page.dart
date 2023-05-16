@@ -39,9 +39,9 @@ class _WelcomeScreenState extends State<WelcomeScreen> {
               Expanded(
                 flex: 0,
                 child: Text(
-                  'Intră în cont pentru a utiliza la aplicație',
+                  'Intră în cont pentru a utiliza aplicația',
                   style: TextStyle(
-                      color: Colors.black.withOpacity(0.5),
+                      color: Colors.black.withOpacity(1),
                       fontWeight: FontWeight.w300,
                       // height: 1.5,
                       fontSize: 15),
