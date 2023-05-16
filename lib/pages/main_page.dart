@@ -39,7 +39,7 @@ class _MainPageState extends State<MainPage> {
                 'assets/images/FullLogo_Transparent_NoBuffer.png',
                 height: 100,
               ),
-              const SizedBox(height: 80,),
+              const SizedBox(height: 60,),
               Column(
                 children: [
                   Text(
@@ -83,9 +83,6 @@ class _MainPageState extends State<MainPage> {
                         validator: (value) {
                           if (value!.isEmpty && value!.length < 5) {
                             return 'Introduceți o parolă validă';
-                            {
-                              return null;
-                            }
                           }
                         },
                         onChanged: (val) {
@@ -110,7 +107,6 @@ class _MainPageState extends State<MainPage> {
                       ),
                     ),
                   ),
-                  SizedBox(height: 40,),
                   ElevatedButton(
                     style: ElevatedButton.styleFrom(
                         shape: RoundedRectangleBorder(
