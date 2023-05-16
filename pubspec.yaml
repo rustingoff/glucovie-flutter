@@ -32,7 +32,7 @@ dependencies:
   flutter:
     sdk: flutter
   lottie: ^2.2.0
-  google_fonts: ^3.0.1
+  google_fonts: ^4.0.4
   page_transition: ^2.0.9
   intl: any
   equatable: ^2.0.0
