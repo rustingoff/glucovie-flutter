@@ -1,6 +1,6 @@
 import 'package:glucovie/pages/auth/loginScreen.dart';
+import 'package:glucovie/pages/auth/signUpScreen.dart';
 import 'package:glucovie/pages/welcome_page.dart';
-import 'package:syncfusion_localizations/syncfusion_localizations.dart';
 import 'package:glucovie/pages/blog_page.dart';
 import 'package:glucovie/pages/calendar_page.dart';
 import 'package:flutter/material.dart';
@@ -24,7 +24,7 @@ class GlucoVie extends StatelessWidget {
       create: (context) => EventProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const WelcomeScreen(),
+        home: const SignUpScreen(),
         themeMode: ThemeMode.light,
         routes: {
           "main_p": (BuildContext context) => const MainPage(),
@@ -34,6 +34,7 @@ class GlucoVie extends StatelessWidget {
           "blog_p": (BuildContext context) => const BlogScreen(),
           "settings_p": (BuildContext context) => const SettingsScreen(),
           "welcome_p": (BuildContext context) => const WelcomeScreen(),
+          "login_p": (BuildContext context) => const LoginScreen(),
         },
       ));
 }
