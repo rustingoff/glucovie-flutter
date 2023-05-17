@@ -1,3 +1,4 @@
+import "package:flutter/services.dart";
 import "package:glucovie/pages/navigation/navigation.dart";
 import "package:flutter/material.dart";
 import "package:glucovie/models/note.dart";
@@ -74,7 +75,7 @@ class _NotePageState extends State<NotePage> {
                   key: formKey,
                   autovalidateMode: AutovalidateMode.always,
                   onChanged: () {
-                    Form.of(primaryFocus!.context!)?.save();
+                    Form.of(primaryFocus!.context!).save();
                   },
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -84,7 +85,7 @@ class _NotePageState extends State<NotePage> {
                           controller: _titleController,
                           decoration: const InputDecoration(
                             hintText: "Titlul notiței",
-                            label: Text("Titlu"),
+                            label: Text("Titlul"),
                           ),
                         ),
                       ),

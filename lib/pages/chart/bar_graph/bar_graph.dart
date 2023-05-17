@@ -23,6 +23,12 @@ class MyBarGraph extends StatelessWidget {
     myBarData.initializeBarData();
     return BarChart(
       BarChartData(
+        barTouchData: BarTouchData(
+          enabled: true,
+          touchTooltipData: BarTouchTooltipData(
+            tooltipBgColor: Colors.grey[100],
+          ),
+        ),
         maxY: maxY,
         minY: 0,
         gridData: FlGridData(show: false),
@@ -49,7 +55,7 @@ class MyBarGraph extends StatelessWidget {
                     backDrawRodData: BackgroundBarChartRodData(
                       show: true,
                       toY: maxY,
-                      color: Colors.purple[200],
+                      color: Colors.purple[100],
                     ),
                   ),
                 ],
@@ -75,7 +81,7 @@ Widget getBottomTitles(double value, TitleMeta meta) {
       text = Text("Luni", style: style);
       break;
     case 1:
-      text = Text("Marti", style: style);
+      text = Text("Marți", style: style);
       break;
     case 2:
       text = Text("Miercuri", style: style);
@@ -97,5 +103,5 @@ Widget getBottomTitles(double value, TitleMeta meta) {
       break;
   }
   
-  return SideTitleWidget(child: text, axisSide: meta.axisSide);
+  return SideTitleWidget(axisSide: meta.axisSide, child: text);
 }

@@ -211,7 +211,7 @@ class _EventEditPageState extends State<EventEditPage> {
           return Theme(
             data: ThemeData.light().copyWith(
               primaryColor: Colors.purple,
-              accentColor: Colors.purple,
+              hintColor: Colors.purple,
               colorScheme: const ColorScheme.light(primary: Color(0xFFBD49DE)),
               buttonTheme: const ButtonThemeData(
                   textTheme: ButtonTextTheme.primary
@@ -236,7 +236,7 @@ class _EventEditPageState extends State<EventEditPage> {
           return Theme(
             data: ThemeData.light().copyWith(
               primaryColor: Colors.purple,
-              accentColor: Colors.purple,
+              hintColor: Colors.purple,
               colorScheme: const ColorScheme.light(primary: Color(0xFFBD49DE)),
               buttonTheme: const ButtonThemeData(
                   textTheme: ButtonTextTheme.primary

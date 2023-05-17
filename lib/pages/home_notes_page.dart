@@ -66,93 +66,16 @@ class _HomeNotesPageState extends State<HomeNotesPage> {
         backgroundColor: Colors.purple,
         actions: selectedNotes.isNotEmpty
             ? [
-          FutureBuilder<List<Tag>>(
-            future: tags,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<Tag>> snapshot,) {
-              return PopupMenuButton<Tag>(
-                tooltip: "Aplică tag",
-                icon: const Icon(Icons.tag),
-                onSelected: (tag) async {
-                  await Note()
-                      .select()
-                      .id
-                      .inValues(selectedNotes)
-                      .update({"tag": tag.id});
-                  selectedNotes = [];
-                  await updateView();
-                },
-                itemBuilder: (BuildContext context) {
-                  var data = snapshot.data ?? [];
+                IconButton(
+                  onPressed: () async {
+                    await Note().select().id.inValues(selectedNotes).delete();
 
-                  return <PopupMenuEntry<Tag>>[
-                    ...data
-                        .map(
-                          (tag) => PopupMenuItem<Tag>(
-                        value: tag,
-                        child: ListTile(
-                          title: Text(tag.tag!),
-                          selected: selectedTag?.id == tag.id,
-                        ),
-                      ),
-                    )
-                        .toList(),
-                  ];
-                },
-              );
-            },),
-          IconButton(
-            onPressed: () async {
-              await Note().select().id.inValues(selectedNotes).delete();
-
-              await updateView();
-            },
-            icon: const Icon(Icons.delete),
-          )
-        ]
-            : [
-          // TODO:
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          FutureBuilder<List<Tag>>(
-            future: tags,
-            builder: (BuildContext context,
-                AsyncSnapshot<List<Tag>> snapshot,) {
-              return PopupMenuButton<Tag>(
-                tooltip: "See by tag",
-                icon: const Icon(Icons.tag),
-                onSelected: (tag) async {
-                  if (tag.id == null) {
-                    selectedTag = null;
-                  } else {
-                    selectedTag = tag;
-                  }
-                  await updateView();
-                },
-                itemBuilder: (BuildContext context) {
-                  return <PopupMenuEntry<Tag>>[
-                    ...(snapshot.data ?? [])
-                        .map(
-                          (tag) => PopupMenuItem<Tag>(
-                        value: tag,
-                        child: ListTile(
-                          title: Text(tag.tag!),
-                          selected: selectedTag?.id == tag.id,
-                        ),
-                      ),
-                    )
-                        .toList(),
-                    PopupMenuItem<Tag>(
-                      value: Tag(),
-                      child: ListTile(
-                        title: const Text("All Tags"),
-                        selected: selectedTag?.id == null,
-                      ),
-                    )
-                  ];
-                },
-              );
-            },),
-        ],
+                    await updateView();
+                  },
+                  icon: const Icon(Icons.delete),
+                )
+              ]
+            : [],
       ),
       body: RefreshIndicator(
         onRefresh: () async {
@@ -222,13 +145,15 @@ class _HomeNotesPageState extends State<HomeNotesPage> {
                                 if (note.tag != null &&
                                     _tags
                                         .where(
-                                          (element) => element.id == note.tag,)
+                                          (element) => element.id == note.tag,
+                                        )
                                         .isNotEmpty)
                                   Text(
                                     "#${_tags.where((element) => element.id == note.tag).first.tag}",
                                     style: const TextStyle(
                                       color: Colors.black87,
-                                      fontStyle: FontStyle.italic,),
+                                      fontStyle: FontStyle.italic,
+                                    ),
                                   )
                                 else
                                   const Text(""),

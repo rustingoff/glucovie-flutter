@@ -54,7 +54,7 @@ class _LoginScreenState extends State<LoginScreen> {
                     height: 30,
                   ),
                   Container(
-                    height: isEmailCorrect! ? 280 : 200,
+                    height: isEmailCorrect ? 280 : 200,
                     // _formKey!.currentState!.validate() ? 200 : 600,
                     // height: isEmailCorrect ? 260 : 182,
                     width: MediaQuery.of(context).size.width / 1.1,
@@ -121,12 +121,10 @@ class _LoginScreenState extends State<LoginScreen> {
                                 labelStyle: formInputTS,
                               ),
                               validator: (value) {
-                                if (value!.isEmpty && value!.length < 8) {
+                                if (value!.isEmpty || value.length < 8) {
                                   return 'Introduceți o parolă validă';
-                                  {
-                                    return null;
-                                  }
                                 }
+                                return null;
                               },
                             ),
                           ),
@@ -158,7 +156,6 @@ class _LoginScreenState extends State<LoginScreen> {
                       ],
                     ),
                   ),
-
                   Row(
                     mainAxisAlignment: MainAxisAlignment.center,
                     children: [

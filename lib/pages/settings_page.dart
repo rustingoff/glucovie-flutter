@@ -27,7 +27,7 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 onToggle: (value) {},
                 initialValue: false,
                 leading: const Icon(Icons.notification_add_outlined),
-                title: const Text('Pornește norificările'),
+                title: const Text('Pornește notificările'),
               ),
               SettingsTile.switchTile(
                 activeSwitchColor: Colors.purple,
@@ -35,6 +35,23 @@ class _SettingsScreenState extends State<SettingsScreen> {
                 initialValue: false,
                 leading: const Icon(Icons.email),
                 title: const Text('Trimite automat email medicului'),
+              ),
+            ],
+          ),
+          SettingsSection(
+            title: const Divider(
+              height: 1,
+              thickness: 1,
+              endIndent: 0,
+              color: Colors.black,
+            ),
+            tiles: <SettingsTile>[
+              SettingsTile.navigation(
+                leading: const Icon(Icons.logout),
+                title: const Text('Deconectează-te'),
+                onPressed: (context) {
+                  Navigator.pushNamed(context, "welcome_p");
+                },
               ),
             ],
           ),

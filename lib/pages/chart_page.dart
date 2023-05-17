@@ -1,7 +1,6 @@
 import 'package:glucovie/pages/chart/bar_graph/bar_graph.dart';
 import 'package:glucovie/pages/navigation/navigation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
 
 import '../constants/text_styles.dart';
 
