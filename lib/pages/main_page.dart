@@ -33,20 +33,15 @@ class _MainPageState extends State<MainPage> {
         child: Center(
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.center,
-            mainAxisAlignment: MainAxisAlignment.start,
+            mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              const SizedBox(
-                height: 100,
-              ),
-              Image.asset(
-                'assets/images/FullLogo_Transparent_NoBuffer.png',
-                height: 100,
-              ),
-              const SizedBox(
-                height: 40,
-              ),
+               Image.asset(
+                  'assets/images/FullLogo_Transparent_NoBuffer.png',
+                  height: 100,
+                ),
               Column(
                 children: [
+                  const SizedBox(height: 30,),
                   Text(
                     formattedDate,
                     textAlign: TextAlign.center,
