@@ -9,7 +9,7 @@ class NewsViewPage extends StatelessWidget {
   Widget build(BuildContext context) {
     var size = MediaQuery.of(context).size;
     return Scaffold(
-      body: Container(
+      body: SizedBox(
           width: size.width,
           child: Stack(
             alignment: Alignment.topLeft,
@@ -25,15 +25,15 @@ class NewsViewPage extends StatelessWidget {
               Container(
                 width: size.width,
                 height: size.height,
-                decoration: BoxDecoration(
+                decoration: const BoxDecoration(
                   gradient: LinearGradient(
                     begin: Alignment.topCenter,
                     end: Alignment.bottomCenter,
                     colors: [
                       // const Color(0xCC000000),
-                      const Color(0x00000000),
-                      const Color(0x00000000),
-                      const Color(0xCC000000),
+                      Color(0x00000000),
+                      Color(0x00000000),
+                      Color(0xCC000000),
                     ],
                   ),
                 ),
@@ -48,9 +48,9 @@ class NewsViewPage extends StatelessWidget {
                     decoration: BoxDecoration(
                         color: Colors.white,
                         borderRadius: BorderRadius.circular(10)),
-                    padding: EdgeInsets.all(5),
-                    margin: EdgeInsets.only(top: 30, left: 10),
-                    child: Icon(
+                    padding: const EdgeInsets.all(5),
+                    margin: const EdgeInsets.only(top: 30, left: 10),
+                    child: const Icon(
                       Icons.arrow_back,
                     ),
                   ),
@@ -62,12 +62,12 @@ class NewsViewPage extends StatelessWidget {
                 // alignment: Alignment.bottomCenter,
                 child: Container(
                   width: size.width,
-                  margin: EdgeInsets.all(20),
+                  margin: const EdgeInsets.all(20),
                   child: Column(
                     children: [
                       Text(
                         newsPost.title,
-                        style: TextStyle(
+                        style: const TextStyle(
                             color: Colors.white,
                             fontSize: 20,
                             fontWeight: FontWeight.bold),
@@ -84,14 +84,14 @@ class NewsViewPage extends StatelessWidget {
                           ),
                           Expanded(
                             child: Container(
-                              margin: EdgeInsets.only(left: 10),
+                              margin: const EdgeInsets.only(left: 10),
                               child: Column(
                                 crossAxisAlignment: CrossAxisAlignment.start,
                                 mainAxisAlignment: MainAxisAlignment.start,
                                 children: [
                                   Text(
                                     newsPost.source,
-                                    style: TextStyle(
+                                    style: const TextStyle(
                                         color: Colors.white,
                                         fontWeight: FontWeight.bold),
                                   ),
@@ -104,9 +104,9 @@ class NewsViewPage extends StatelessWidget {
                             ),
                           ),
                           Container(
-                            margin: EdgeInsets.only(right: 40),
+                            margin: const EdgeInsets.only(right: 40),
                             child: Row(
-                              children: [
+                              children: const [
                                 Icon(
                                   Icons.bookmark_outlined,
                                   color: Colors.white,
@@ -123,14 +123,14 @@ class NewsViewPage extends StatelessWidget {
                         ],
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 10, right: 40),
+                        margin: const EdgeInsets.only(top: 10, right: 40),
                         height: 3,
-                        decoration: BoxDecoration(color: Colors.white),
+                        decoration: const BoxDecoration(color: Colors.white),
                       ),
                       Container(
-                        margin: EdgeInsets.only(top: 10, right: 40),
+                        margin: const EdgeInsets.only(top: 10, right: 40),
                         child: Text(newsPost.description,
-                            style: TextStyle(
+                            style: const TextStyle(
                               color: Colors.white,
                             )),
                       )
