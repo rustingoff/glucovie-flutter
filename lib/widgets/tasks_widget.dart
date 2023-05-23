@@ -27,19 +27,31 @@ class _TasksWidgetState extends State<TasksWidget> {
       );
     }
 
-    return SfCalendar(
-      view: CalendarView.schedule,
-      dataSource: EventDataSource(provider.events),
-      initialDisplayDate: provider.selectedDate,
-      timeZone: "GTB Standard Time",
-      todayHighlightColor: Colors.purple,
-      scheduleViewSettings: const ScheduleViewSettings(
-        hideEmptyScheduleWeek: true,
-        monthHeaderSettings: MonthHeaderSettings(
-          backgroundColor: Colors.purple,
+    return Scaffold(
+      body: SfCalendar(
+        view: CalendarView.schedule,
+        dataSource: EventDataSource(provider.events),
+        initialDisplayDate: provider.selectedDate,
+        timeZone: "GTB Standard Time",
+        todayHighlightColor: Colors.purple,
+        scheduleViewSettings: const ScheduleViewSettings(
+          hideEmptyScheduleWeek: true,
+          monthHeaderSettings: MonthHeaderSettings(
+            backgroundColor: Colors.purple,
+          ),
         ),
+        // appointmentBuilder: appointmentBuilder,
       ),
-      // appointmentBuilder: appointmentBuilder,
+      floatingActionButton: FloatingActionButton(
+        isExtended: false,
+        backgroundColor: Colors.purple,
+        onPressed: () {
+          setState(() {
+            provider.deleteEvent(provider.events.last);
+          });
+        },
+        child: const Icon(Icons.delete),
+      ),
     );
   }
 }

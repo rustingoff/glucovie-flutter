@@ -1,7 +1,9 @@
+import 'package:dio/dio.dart';
 import 'package:glucovie/constants/text_styles.dart';
 import 'package:flutter/material.dart';
 import 'package:lottie/lottie.dart';
 import 'package:validators/validators.dart';
+import '../../api/apiClient.dart';
 import 'signUpScreen.dart';
 
 
@@ -13,11 +15,44 @@ class LoginScreen extends StatefulWidget {
 }
 
 class _LoginScreenState extends State<LoginScreen> {
-  final TextEditingController _textEditingController = TextEditingController();
+  final TextEditingController _emailEditingController = TextEditingController();
+  final TextEditingController _passwordEditingController = TextEditingController();
+
+  final ApiClient _apiClient = ApiClient();
+
+  Future<void> _handleLogin() async {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Processing Data'),
+        backgroundColor: Colors.green.shade300,
+      ));
+
+      Map<String, dynamic> userData = {
+        "email": _emailEditingController.text,
+        "password": _passwordEditingController.text,
+      };
+
+      Response res = await _apiClient.login(userData);
+      if (res.statusCode == 200) {
+        if (context.mounted) {
+          Navigator.pushNamed(context, 'main_p');
+        }
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Error: ${res.data['error']}'),
+            backgroundColor: Colors.red.shade300,
+          ));
+        }
+      }
+    }
+  }
 
   @override
   void dispose() {
-    _textEditingController.clear();
+    _emailEditingController.clear();
+    _passwordEditingController.clear();
     super.dispose();
   }
 
@@ -36,7 +71,6 @@ class _LoginScreenState extends State<LoginScreen> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
                   Lottie.network(
-                      // 'https://assets6.lottiefiles.com/private_files/lf30_ulp9xiqw.json', //shakeing lock
                       'https://assets6.lottiefiles.com/packages/lf20_k9wsvzgd.json',
                       animate: true,
                       height: 120,
@@ -55,52 +89,24 @@ class _LoginScreenState extends State<LoginScreen> {
                   ),
                   Container(
                     height: isEmailCorrect ? 280 : 200,
-                    // _formKey!.currentState!.validate() ? 200 : 600,
-                    // height: isEmailCorrect ? 260 : 182,
                     width: MediaQuery.of(context).size.width / 1.1,
                     decoration: BoxDecoration(
                         color: Colors.white.withOpacity(0.3),
                         borderRadius: BorderRadius.circular(20)),
-                    child: Column(
-                      children: [
-                        Padding(
-                          padding: const EdgeInsets.only(
-                              left: 20, right: 20,),
-                          child: TextFormField(
-                            controller: _textEditingController,
-                            onChanged: (val) {
-                              setState(() {
-                                isEmailCorrect = isEmail(val);
-                              });
-                            },
-                            decoration: InputDecoration(
-                              focusedBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              enabledBorder: const UnderlineInputBorder(
-                                  borderSide: BorderSide.none,
-                                  borderRadius:
-                                      BorderRadius.all(Radius.circular(10))),
-                              prefixIcon: const Icon(
-                                Icons.person,
-                                color: Colors.purple,
-                              ),
-                              filled: true,
-                              fillColor: Colors.white,
-                              labelText: "Email",
-                              hintText: 'your-email@domain.com',
-                              labelStyle: formInputTS,
-                            ),
-                          ),
-                        ),
-                        Padding(
-                          padding: const EdgeInsets.only(left: 20, right: 20),
-                          child: Form(
-                            key: _formKey,
+                    child: Form(
+                      key: _formKey,
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.only(
+                                left: 20, right: 20,),
                             child: TextFormField(
-                              obscuringCharacter: '*',
-                              obscureText: true,
+                              controller: _emailEditingController,
+                              onChanged: (val) {
+                                setState(() {
+                                  isEmailCorrect = isEmail(val);
+                                });
+                              },
                               decoration: InputDecoration(
                                 focusedBorder: const UnderlineInputBorder(
                                     borderSide: BorderSide.none,
@@ -111,49 +117,71 @@ class _LoginScreenState extends State<LoginScreen> {
                                     borderRadius:
                                         BorderRadius.all(Radius.circular(10))),
                                 prefixIcon: const Icon(
-                                  Icons.lock,
+                                  Icons.person,
                                   color: Colors.purple,
                                 ),
                                 filled: true,
                                 fillColor: Colors.white,
-                                labelText: "Parola",
-                                hintText: '*********',
+                                labelText: "Email",
+                                hintText: 'your-email@domain.com',
                                 labelStyle: formInputTS,
                               ),
-                              validator: (value) {
-                                if (value!.isEmpty || value.length < 8) {
-                                  return 'Introduceți o parolă validă';
-                                }
-                                return null;
-                              },
                             ),
                           ),
-                        ),
-                        const SizedBox(
-                          height: 20,
-                        ),
-                        isEmailCorrect
-                            ? ElevatedButton(
-                                style: ElevatedButton.styleFrom(
-                                    shape: RoundedRectangleBorder(
-                                        borderRadius:
-                                            BorderRadius.circular(10.0)),
-                                    backgroundColor: isEmailCorrect == false
-                                        ? Colors.red
-                                        : Colors.purple,
-                                    padding: const EdgeInsets.symmetric(horizontal: 131, vertical: 20)),
-                                onPressed: () {
-                                  if (_formKey.currentState!.validate()) {
-                                    Navigator.pushNamed(context,
-                                        "main_p");
+                          Padding(
+                            padding: const EdgeInsets.only(left: 20, right: 20),
+                              child: TextFormField(
+                                controller: _passwordEditingController,
+                                obscuringCharacter: '*',
+                                obscureText: true,
+                                decoration: InputDecoration(
+                                  focusedBorder: const UnderlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10))),
+                                  enabledBorder: const UnderlineInputBorder(
+                                      borderSide: BorderSide.none,
+                                      borderRadius:
+                                          BorderRadius.all(Radius.circular(10))),
+                                  prefixIcon: const Icon(
+                                    Icons.lock,
+                                    color: Colors.purple,
+                                  ),
+                                  filled: true,
+                                  fillColor: Colors.white,
+                                  labelText: "Parola",
+                                  hintText: '*********',
+                                  labelStyle: formInputTS,
+                                ),
+                                validator: (value) {
+                                  if (value!.isEmpty || value.length < 8) {
+                                    return 'Introduceți o parolă validă';
                                   }
+                                  return null;
                                 },
-                                child: const Text(
-                                  'Intră',
-                                  style: TextStyle(fontSize: 17),
-                                ))
-                            : Container(),
-                      ],
+                              ),
+                          ),
+                          const SizedBox(
+                            height: 20,
+                          ),
+                          isEmailCorrect
+                              ? ElevatedButton(
+                                  style: ElevatedButton.styleFrom(
+                                      shape: RoundedRectangleBorder(
+                                          borderRadius:
+                                              BorderRadius.circular(10.0)),
+                                      backgroundColor: isEmailCorrect == false
+                                          ? Colors.red
+                                          : Colors.purple,
+                                      padding: const EdgeInsets.symmetric(horizontal: 131, vertical: 20)),
+                                  onPressed: _handleLogin,
+                                  child: const Text(
+                                    'Intră',
+                                    style: TextStyle(fontSize: 17),
+                                  ))
+                              : Container(),
+                        ],
+                      ),
                     ),
                   ),
                   Row(

@@ -19,4 +19,10 @@ class EventProvider extends ChangeNotifier{
 
     notifyListeners();
   }
+
+  void deleteEvent(Event event) {
+    _events.remove(event);
+
+    notifyListeners();
+  }
 }
