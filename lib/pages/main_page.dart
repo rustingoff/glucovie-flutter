@@ -1,7 +1,11 @@
+import 'package:dio/dio.dart';
+import 'package:flutter/services.dart';
 import 'package:glucovie/pages/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
+
+import '../api/apiClient.dart';
 
 class MainPage extends StatefulWidget {
   const MainPage({Key? key}) : super(key: key);
@@ -14,6 +18,55 @@ class _MainPageState extends State<MainPage> {
   String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.now());
 
   final TextEditingController _textEditingController = TextEditingController();
+
+  final ApiClient _apiClient = ApiClient();
+
+  Future<void> _handleSaveGlucoseLevel(int measure) async {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Processing Data'),
+        backgroundColor: Colors.green.shade300,
+      ));
+
+      double level = 0;
+
+      if (measure == 2) {
+        level = double.parse((glucoseValue * 18)
+            .toStringAsFixed(3));
+      } else {
+        level = glucoseValue;
+      }
+
+      if (level > 100) {
+        level = 100;
+      }
+
+      Map<String, String> userData = {
+        "level": level.toString(),
+        "type":  measure.toString(),
+    };
+
+      Response res = await _apiClient.saveGlucoseLevel(userData);
+      if (res.statusCode == 200) {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: const Text('Saved !'),
+            backgroundColor: Colors.purple.shade400,
+          ));
+          _textEditingController.clear();
+        }
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Error: ${res.data['error']}'),
+            backgroundColor: Colors.red.shade300,
+          ));
+        }
+      }
+    }
+  }
 
   @override
   void dispose() {
@@ -108,6 +161,8 @@ class _MainPageState extends State<MainPage> {
                               child: Form(
                                 key: _formKey,
                                 child: TextFormField(
+                                  controller: _textEditingController,
+
                                   style: GoogleFonts.archivo(
                                     fontSize: 18,
                                   ),
@@ -188,7 +243,8 @@ class _MainPageState extends State<MainPage> {
                                     labelStyle: TextStyle(
                                         color: Colors.purple, fontSize: 16),
                                   ),
-                                  validator: (value) {},
+                                  validator: (value) {
+                                  },
                                   onChanged: (val) {
                                     setState(() {
                                       if (val == "") {
@@ -222,7 +278,9 @@ class _MainPageState extends State<MainPage> {
                         padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 3.3,
                             vertical: 20)),
-                    onPressed: () {},
+                    onPressed: () {
+                      _handleSaveGlucoseLevel(measure);
+                    },
                     child: const Text("Salvează datele"),
                   ),
                 ],

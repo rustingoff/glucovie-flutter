@@ -1,8 +1,10 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:glucovie/models/event.dart';
 import 'package:glucovie/utils.dart';
 import 'package:provider/provider.dart';
 
+import '../../api/apiClient.dart';
 import '../../constants/text_styles.dart';
 import '../../provider/event_provider.dart';
 
@@ -69,7 +71,7 @@ class _EventEditPageState extends State<EventEditPage> {
             backgroundColor: Colors.transparent,
             shadowColor: Colors.transparent,
           ),
-          onPressed:saveForm,
+          onPressed:_handleSaveEvent,
           icon: const Icon(Icons.done),
           label: const Text("Salvează"),
         ),
@@ -155,23 +157,64 @@ class _EventEditPageState extends State<EventEditPage> {
         ],
       );
 
-  Future saveForm() async {
-    final isValid = _formKey.currentState!.validate();
-    if (isValid) {
-      final event = Event(
-        title: titleController.text,
-        description: 'description',
-        from: fromDate,
-        to: toDate,
-        isAllDay: false,
-      );
+  final ApiClient _apiClient = ApiClient();
 
-      final provider = Provider.of<EventProvider>(context, listen: false);
-      provider.addEvent(event);
+  Future<void> _handleSaveEvent() async {
+    if (_formKey.currentState!.validate()) {
+      ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+        content: const Text('Se procesează...'),
+        backgroundColor: Colors.green.shade300,
+      ));
 
-      Navigator.of(context).pop();
+      Map<String, dynamic> data = {
+        "title": titleController.text,
+        "from": fromDate.toString(),
+        "to": toDate.toString(),
+      };
+
+      Response res = await _apiClient.saveEvent(data);
+      if (res.statusCode == 200) {
+        final event = Event(
+          title: titleController.text,
+          description: 'description',
+          from: fromDate,
+          to: toDate,
+          isAllDay: false,
+        );
+
+        final provider = Provider.of<EventProvider>(context, listen: false);
+        provider.addEvent(event);
+
+        Navigator.of(context).pop();
+      } else {
+        if (context.mounted) {
+          ScaffoldMessenger.of(context).hideCurrentSnackBar();
+          ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+            content: Text('Error: ${res.data['error']}'),
+            backgroundColor: Colors.red.shade300,
+          ));
+        }
+      }
     }
   }
+
+  // Future saveForm() async {
+  //   final isValid = _formKey.currentState!.validate();
+  //   if (isValid) {
+  //     final event = Event(
+  //       title: titleController.text,
+  //       description: 'description',
+  //       from: fromDate,
+  //       to: toDate,
+  //       isAllDay: false,
+  //     );
+  //
+  //     final provider = Provider.of<EventProvider>(context, listen: false);
+  //     provider.addEvent(event);
+  //
+  //     Navigator.of(context).pop();
+  //   }
+  // }
 
   Future pickFromDateTime({required bool pickDate}) async {
     final date = await pickDateTime(fromDate, pickDate: pickDate);

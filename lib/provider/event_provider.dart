@@ -1,8 +1,30 @@
+import 'package:glucovie/api/apiClient.dart';
 import 'package:glucovie/models/event.dart';
 import 'package:flutter/material.dart';
 
 class EventProvider extends ChangeNotifier{
+  final ApiClient _apiClient = ApiClient();
   final List<Event> _events = [];
+
+  EventProvider() {
+    var response = _apiClient.getEvents();
+    response.then((value) => {
+      debugPrint("${value.data["data"]}"),
+      for(var v in value.data["data"]){
+        _events.add(
+          Event(
+            title: v["title"],
+            description: "",
+            from: DateTime.parse(v["from"]),
+            to: DateTime.parse(v["to"]),
+          ),
+        ),
+      },
+      notifyListeners(),
+    }).onError((error, stackTrace) => {
+      debugPrint("$error"),
+    });
+  }
 
   List<Event> get events => _events;
 

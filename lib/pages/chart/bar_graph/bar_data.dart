@@ -1,35 +1,24 @@
+import '../../../models/glucose.dart';
 import 'individual_bar.dart';
 
 class BarData {
-  final double sunAmount;
-  final double monAmount;
-  final double tueAmount;
-  final double wedAmount;
-  final double thurAmount;
-  final double friAmount;
-  final double satAmount;
-
-  BarData({
-    required this.sunAmount,
-    required this.monAmount,
-    required this.tueAmount,
-    required this.wedAmount,
-    required this.thurAmount,
-    required this.friAmount,
-    required this.satAmount,
-  });
-
+  static List<GlucoseLevel> data = [];
   List<IndividualBar> barData = [];
 
-  void initializeBarData() {
+
+  BarData(){
     barData = [
-      IndividualBar(x: 0, y: monAmount),
-      IndividualBar(x: 1, y: tueAmount),
-      IndividualBar(x: 2, y: wedAmount),
-      IndividualBar(x: 3, y: thurAmount),
-      IndividualBar(x: 4, y: friAmount),
-      IndividualBar(x: 5, y: satAmount),
-      IndividualBar(x: 6, y: sunAmount),
+      IndividualBar(x: data[0].day, y: data[0].level),
+      IndividualBar(x: data[1].day, y: data[1].level),
+      IndividualBar(x: data[2].day, y: data[2].level),
+      IndividualBar(x: data[3].day, y: data[3].level),
+      IndividualBar(x: data[4].day, y: data[4].level),
+      IndividualBar(x: data[5].day, y: data[5].level),
+      IndividualBar(x: data[6].day, y: data[6].level),
     ];
+  }
+
+  List<IndividualBar> getBarData() {
+    return barData;
   }
 }
