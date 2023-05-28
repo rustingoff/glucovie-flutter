@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 
 class Event {
+  final String id;
   final String title;
   final String description;
   final DateTime from;
@@ -9,6 +10,7 @@ class Event {
   final bool isAllDay;
 
   const Event({
+    required this.id,
     required this.title,
     required this.description,
     required this.from,

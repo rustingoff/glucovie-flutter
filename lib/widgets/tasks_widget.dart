@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:glucovie/api/apiClient.dart';
 import 'package:glucovie/constants/text_styles.dart';
 import 'package:glucovie/models/event_data_source.dart';
 import 'package:glucovie/provider/event_provider.dart';
@@ -13,6 +14,9 @@ class TasksWidget extends StatefulWidget {
 }
 
 class _TasksWidgetState extends State<TasksWidget> {
+  final ApiClient _apiClient = ApiClient();
+
+
   @override
   Widget build(BuildContext context) {
     final provider = Provider.of<EventProvider>(context);
@@ -47,6 +51,7 @@ class _TasksWidgetState extends State<TasksWidget> {
         backgroundColor: Colors.purple,
         onPressed: () {
           setState(() {
+            _apiClient.deleteEvent(provider.events.last.id);
             provider.deleteEvent(provider.events.last);
           });
         },

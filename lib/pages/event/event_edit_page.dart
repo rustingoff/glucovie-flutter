@@ -175,6 +175,7 @@ class _EventEditPageState extends State<EventEditPage> {
       Response res = await _apiClient.saveEvent(data);
       if (res.statusCode == 200) {
         final event = Event(
+          id: "",
           title: titleController.text,
           description: 'description',
           from: fromDate,

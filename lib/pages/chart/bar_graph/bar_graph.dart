@@ -24,8 +24,8 @@ class _MyBarGraphState extends State<MyBarGraph> {
   double getMaxValue() {
     double max = 0;
     for (var i = 0; i < data.length; i++) {
-      if (max < double.parse(data[i]["level"])){
-        max = double.parse(data[i]["level"]);
+      if (max < data[i]["level"]){
+        max = data[i]["level"];
       }
     }
 
@@ -49,12 +49,20 @@ class _MyBarGraphState extends State<MyBarGraph> {
   }
 
   void setObjs() {
+    List<IndividualBar> o = [];
+
     for (var v in data) {
-      objs.add(IndividualBar(
-        x: int.parse(v["day"]),
-        y: double.parse(v["level"]),
+      o.add(IndividualBar(
+        x: v["day"],
+        y: double.parse(v["level"].toString()),
       ));
     }
+    var temp = o[0];
+    for (var i = 0; i < o.length-1; i++) {
+      objs.add(o[i+1]);
+    }
+
+    objs.add(temp);
   }
 
   Widget getBottomTitles(double value, TitleMeta meta) {

@@ -41,8 +41,8 @@ class _MainPageState extends State<MainPage> {
         level = 100;
       }
 
-      Map<String, String> userData = {
-        "level": level.toString(),
+      Map<String, dynamic> userData = {
+        "level": level,
         "type":  measure.toString(),
     };
 

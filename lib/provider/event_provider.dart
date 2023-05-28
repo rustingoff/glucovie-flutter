@@ -9,10 +9,10 @@ class EventProvider extends ChangeNotifier{
   EventProvider() {
     var response = _apiClient.getEvents();
     response.then((value) => {
-      debugPrint("${value.data["data"]}"),
       for(var v in value.data["data"]){
         _events.add(
           Event(
+            id: v["id"],
             title: v["title"],
             description: "",
             from: DateTime.parse(v["from"]),

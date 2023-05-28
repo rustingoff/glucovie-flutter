@@ -44,7 +44,7 @@ class ApiClient {
     }
   }
 
-  Future<Response> saveGlucoseLevel(Map<String, String>? req) async {
+  Future<Response> saveGlucoseLevel(Map<String, dynamic>? req) async {
     try {
       Response response = await _dio.post(
         '$apiEndpoint/glucose/save',
@@ -104,6 +104,25 @@ class ApiClient {
     try {
       Response response = await _dio.get(
         '$apiEndpoint/event/get',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return response;
+    } on DioError catch (e) {
+      debugPrint('$e');
+      return e.response!;
+    }
+  }
+
+  Future<Response> deleteEvent(String id) async {
+    var token = await storage.read(key: "jwt");
+    try {
+      Response response = await _dio.delete(
+        '$apiEndpoint/event/$id',
         options: Options(
           headers: {
             'Content-Type': 'application/json',

@@ -23,7 +23,7 @@ class GlucoVie extends StatelessWidget {
       create: (context) => EventProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const LoginScreen(),
+        home: const ChartScreen(),
         themeMode: ThemeMode.light,
         routes: {
           "main_p": (BuildContext context) => const MainPage(),
