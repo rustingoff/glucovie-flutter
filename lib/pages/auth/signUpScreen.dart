@@ -20,6 +20,8 @@ class _SignUpScreenState extends State<SignUpScreen> {
   final TextEditingController _phoneEditingController = TextEditingController();
   final TextEditingController _genderEditingController = TextEditingController();
   final TextEditingController _ageEditingController = TextEditingController();
+  final TextEditingController _docEmailEditingController = TextEditingController();
+
 
   final ApiClient _apiClient = ApiClient();
 
@@ -32,6 +34,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
 
       Map<String, dynamic> userData = {
         "email": _emailEditingController.text,
+        "doc_mail": _docEmailEditingController.text,
         "password": _passwordEditingController.text,
         "phone": _phoneEditingController.text,
         "gender": _genderEditingController.text,
@@ -62,6 +65,7 @@ class _SignUpScreenState extends State<SignUpScreen> {
     _phoneEditingController.clear();
     _genderEditingController.clear();
     _ageEditingController.clear();
+    _docEmailEditingController.clear();
     super.dispose();
   }
 
@@ -131,6 +135,37 @@ class _SignUpScreenState extends State<SignUpScreen> {
                               fillColor: Colors.white,
                               labelText: "Email",
                               hintText: 'your-email@domain.com',
+                              labelStyle: formInputTS,
+                            ),
+                          ),
+                        ),
+                        Padding(
+                          padding: const EdgeInsets.only(
+                              left: 20, right: 20, bottom: 10, top: 0),
+                          child: TextFormField(
+                            controller: _docEmailEditingController,
+                            onChanged: (val) {
+                              setState(() {
+                                isEmailCorrect = isEmail(val);
+                              });
+                            },
+                            decoration: InputDecoration(
+                              focusedBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                              enabledBorder: const UnderlineInputBorder(
+                                  borderSide: BorderSide.none,
+                                  borderRadius:
+                                  BorderRadius.all(Radius.circular(10))),
+                              prefixIcon: const Icon(
+                                Icons.medical_information,
+                                color: Colors.purple,
+                              ),
+                              filled: true,
+                              fillColor: Colors.white,
+                              labelText: "Medic Email",
+                              hintText: 'doctor-email@domain.com',
                               labelStyle: formInputTS,
                             ),
                           ),

@@ -1,4 +1,5 @@
 import 'package:glucovie/pages/auth/loginScreen.dart';
+import 'package:glucovie/pages/auth/signUpScreen.dart';
 import 'package:glucovie/pages/welcome_page.dart';
 import 'package:glucovie/pages/blog_page.dart';
 import 'package:glucovie/pages/calendar_page.dart';
@@ -23,7 +24,7 @@ class GlucoVie extends StatelessWidget {
       create: (context) => EventProvider(),
       child: MaterialApp(
         debugShowCheckedModeBanner: false,
-        home: const ChartScreen(),
+        home: const WelcomeScreen(),
         themeMode: ThemeMode.light,
         routes: {
           "main_p": (BuildContext context) => const MainPage(),

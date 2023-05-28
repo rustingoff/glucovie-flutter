@@ -45,6 +45,7 @@ class ApiClient {
   }
 
   Future<Response> saveGlucoseLevel(Map<String, dynamic>? req) async {
+    var token = await storage.read(key: "jwt");
     try {
       Response response = await _dio.post(
         '$apiEndpoint/glucose/save',
@@ -52,6 +53,8 @@ class ApiClient {
         options: Options(
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+
           },
         ),
       );
@@ -83,12 +86,15 @@ class ApiClient {
   }
 
   Future<Response> getGlucoseLevelLastWeek() async {
+    var token = await storage.read(key: "jwt");
+
     try {
       Response response = await _dio.get(
         '$apiEndpoint/glucose/week',
         options: Options(
           headers: {
             'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
           },
         ),
       );
@@ -123,6 +129,45 @@ class ApiClient {
     try {
       Response response = await _dio.delete(
         '$apiEndpoint/event/$id',
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return response;
+    } on DioError catch (e) {
+      debugPrint('$e');
+      return e.response!;
+    }
+  }
+
+  Future<Response> saveUserSettings(Map<String, dynamic>? data) async {
+    var token = await storage.read(key: "jwt");
+    try {
+      Response response = await _dio.post(
+        '$apiEndpoint/auth/user/settings',
+        data: data,
+        options: Options(
+          headers: {
+            'Content-Type': 'application/json',
+            'Authorization': 'Bearer $token',
+          },
+        ),
+      );
+      return response;
+    } on DioError catch (e) {
+      debugPrint('$e');
+      return e.response!;
+    }
+  }
+
+  Future<Response> getUserSettings() async {
+    var token = await storage.read(key: "jwt");
+    try {
+      Response response = await _dio.get(
+        '$apiEndpoint/auth/user/settings',
         options: Options(
           headers: {
             'Content-Type': 'application/json',

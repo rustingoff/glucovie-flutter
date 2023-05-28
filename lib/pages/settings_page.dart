@@ -1,6 +1,10 @@
+import 'package:dio/dio.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:glucovie/pages/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:settings_ui/settings_ui.dart';
+
+import '../api/apiClient.dart';
 
 class SettingsScreen extends StatefulWidget {
   const SettingsScreen({Key? key}) : super(key: key);
@@ -10,29 +14,91 @@ class SettingsScreen extends StatefulWidget {
 }
 
 class _SettingsScreenState extends State<SettingsScreen> {
+  bool notification = false;
+  bool emailNotification = false;
+  final ApiClient _apiClient = ApiClient();
+  final storage = const FlutterSecureStorage();
+
+  @override
+  void initState() {
+    super.initState();
+    getUserSettings();
+  }
+
+  void getUserSettings() {
+    var res = _apiClient.getUserSettings();
+    res.then((value) => {
+    setState(() {
+      notification = value.data["data"]["notification"];
+      emailNotification = value.data["data"]["email_notification"];
+    }),
+    }).onError((error, stackTrace) => {});
+  }
+
+  List<Widget> buildEditingActions() =>
+      [
+        ElevatedButton.icon(
+          style: ElevatedButton.styleFrom(
+            backgroundColor: Colors.transparent,
+            shadowColor: Colors.transparent,
+          ),
+          onPressed: () {
+            Map<String, dynamic> data = {
+              "notification": notification,
+              "email_notification": emailNotification,
+            };
+            var res = _apiClient.saveUserSettings(data);
+            res.then((value) => {
+            ScaffoldMessenger.of(context).hideCurrentSnackBar(),
+              ScaffoldMessenger.of(context).showSnackBar(SnackBar(
+              content: const Text('Saved !'),
+              backgroundColor: Colors.purple.shade400,
+            )),
+            }).onError((error, stackTrace) => {});
+            storage.write(key: "n", value: notification.toString());
+            storage.write(key: "nm", value: emailNotification.toString());
+          },
+
+          icon: const Icon(Icons.done),
+          label: const Text("Salvează"),
+        ),
+      ];
+
+
   @override
   Widget build(BuildContext context) {
+    // getUserSettings();
     return Scaffold(
       appBar: AppBar(
+        actions: buildEditingActions(),
         title: const Text('Setări'),
         backgroundColor: Colors.purple,
       ),
       body: SettingsList(
         sections: [
           SettingsSection(
-            title: const Text('Setări de profil', style: TextStyle(color: Colors.purple),),
+            title: const Text(
+              'Setări de profil', style: TextStyle(color: Colors.purple),),
             tiles: <SettingsTile>[
               SettingsTile.switchTile(
                 activeSwitchColor: Colors.purple,
-                onToggle: (value) {},
-                initialValue: false,
+                onToggle: (value) {
+                  setState(() {
+                    notification = !notification;
+                  });
+                },
+                initialValue: notification,
                 leading: const Icon(Icons.notification_add_outlined),
                 title: const Text('Pornește notificările'),
               ),
               SettingsTile.switchTile(
                 activeSwitchColor: Colors.purple,
-                onToggle: (value) {},
-                initialValue: false,
+                onToggle: (value) {
+                  setState(() {
+                    emailNotification = !emailNotification;
+                  });
+                },
+                initialValue: emailNotification,
                 leading: const Icon(Icons.email),
                 title: const Text('Trimite automat email medicului'),
               ),

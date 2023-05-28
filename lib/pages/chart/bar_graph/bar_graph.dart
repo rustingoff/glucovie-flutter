@@ -24,8 +24,9 @@ class _MyBarGraphState extends State<MyBarGraph> {
   double getMaxValue() {
     double max = 0;
     for (var i = 0; i < data.length; i++) {
-      if (max < data[i]["level"]){
-        max = data[i]["level"];
+      double v = double.parse(data[i]["level"].toString());
+      if (max < v){
+        max = v;
       }
     }
 
