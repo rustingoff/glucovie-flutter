@@ -51,7 +51,7 @@ class _MainPageState extends State<MainPage> {
         if (context.mounted) {
           ScaffoldMessenger.of(context).hideCurrentSnackBar();
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-            content: const Text('Saved !'),
+            content: const Text('Salvat !'),
             backgroundColor: Colors.purple.shade400,
           ));
           _textEditingController.clear();

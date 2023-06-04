@@ -116,7 +116,7 @@ class _MyBarGraphState extends State<MyBarGraph> {
           ),
         ),
         maxY: getMaxValue(),
-        minY: 20,
+        minY: 10,
         gridData: FlGridData(show: false),
         borderData: FlBorderData(show: false),
         titlesData: FlTitlesData(

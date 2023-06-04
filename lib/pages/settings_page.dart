@@ -1,4 +1,3 @@
-import 'package:dio/dio.dart';
 import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:glucovie/pages/navigation/navigation.dart';
 import 'package:flutter/material.dart';
@@ -51,14 +50,13 @@ class _SettingsScreenState extends State<SettingsScreen> {
             res.then((value) => {
             ScaffoldMessenger.of(context).hideCurrentSnackBar(),
               ScaffoldMessenger.of(context).showSnackBar(SnackBar(
-              content: const Text('Saved !'),
+              content: const Text('Salvat !'),
               backgroundColor: Colors.purple.shade400,
             )),
             }).onError((error, stackTrace) => {});
             storage.write(key: "n", value: notification.toString());
             storage.write(key: "nm", value: emailNotification.toString());
           },
-
           icon: const Icon(Icons.done),
           label: const Text("Salvează"),
         ),
@@ -67,7 +65,6 @@ class _SettingsScreenState extends State<SettingsScreen> {
 
   @override
   Widget build(BuildContext context) {
-    // getUserSettings();
     return Scaffold(
       appBar: AppBar(
         actions: buildEditingActions(),
