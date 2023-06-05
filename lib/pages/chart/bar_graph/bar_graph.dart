@@ -58,12 +58,8 @@ class _MyBarGraphState extends State<MyBarGraph> {
         y: double.parse(v["level"].toString()),
       ));
     }
-    var temp = o[0];
-    for (var i = 0; i < o.length-1; i++) {
-      objs.add(o[i+1]);
-    }
 
-    objs.add(temp);
+    objs.addAll(o);
   }
 
   Widget getBottomTitles(double value, TitleMeta meta) {

@@ -1,10 +1,11 @@
 import 'package:dio/dio.dart';
-import 'package:flutter/services.dart';
+import 'package:flutter_secure_storage/flutter_secure_storage.dart';
 import 'package:glucovie/pages/navigation/navigation.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
 import 'package:google_fonts/google_fonts.dart';
-
+import 'package:web_socket_channel/io.dart';
+import 'package:web_socket_channel/status.dart' as statusCodes;
 import '../api/apiClient.dart';
 
 class MainPage extends StatefulWidget {
@@ -15,12 +16,10 @@ class MainPage extends StatefulWidget {
 }
 
 class _MainPageState extends State<MainPage> {
-  String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.now());
-
   final TextEditingController _textEditingController = TextEditingController();
-
   final ApiClient _apiClient = ApiClient();
-
+  final storage = const FlutterSecureStorage();
+  String formattedDate = DateFormat('dd.MM.yyyy').format(DateTime.now());
   Future<void> _handleSaveGlucoseLevel(int measure) async {
     if (_formKey.currentState!.validate()) {
       ScaffoldMessenger.of(context).showSnackBar(SnackBar(
@@ -66,6 +65,11 @@ class _MainPageState extends State<MainPage> {
         }
       }
     }
+  }
+
+  @override
+  void initState() {
+    super.initState();
   }
 
   @override
@@ -278,7 +282,7 @@ class _MainPageState extends State<MainPage> {
                         padding: EdgeInsets.symmetric(
                             horizontal: MediaQuery.of(context).size.width / 3.3,
                             vertical: 20)),
-                    onPressed: () {
+                    onPressed: ()  {
                       _handleSaveGlucoseLevel(measure);
                     },
                     child: const Text("Salvează datele"),

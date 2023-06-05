@@ -1,5 +1,4 @@
 import 'package:glucovie/pages/auth/loginScreen.dart';
-import 'package:glucovie/pages/auth/signUpScreen.dart';
 import 'package:glucovie/pages/welcome_page.dart';
 import 'package:glucovie/pages/blog_page.dart';
 import 'package:glucovie/pages/calendar_page.dart';
@@ -12,12 +11,19 @@ import 'package:glucovie/provider/event_provider.dart';
 import 'package:intl/date_symbol_data_local.dart';
 import 'package:provider/provider.dart';
 
-void main() {
+Future<void> main() async {
+  WidgetsFlutterBinding.ensureInitialized();
   initializeDateFormatting().then((_) => runApp(const GlucoVie()));
 }
 
-class GlucoVie extends StatelessWidget {
+class GlucoVie extends StatefulWidget {
   const GlucoVie({Key? key}) : super(key: key);
+
+  @override
+  State<GlucoVie> createState() => _GlucoVieState();
+}
+
+class _GlucoVieState extends State<GlucoVie> {
 
   @override
   Widget build(BuildContext context) => ChangeNotifierProvider(
